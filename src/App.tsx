@@ -1,26 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState} from 'react';
+import {HashRouter as Router, Switch, Route} from 'react-router-dom';
+
+import Navigation from './components/Navigation';
+import Home from './pages/home';
+import Dashboard from './pages/dashboard';
+import Login from './pages/login';
+
 import './App.css';
 
 function App() {
+  // just set loggedIn to true once you logged iu/auth-ed
+  // const [loggedIn, setLoggedIn] = useState<boolean>(false);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Router>
+      <Navigation />
+
+      <Switch>
+        <Route path='/dashboard'>
+          <Dashboard />
+        </Route>
+        <Route path='/login'>
+          <Login />
+        </Route>
+        <Route path='/'>
+          <Home />
+        </Route>
+      </Switch>
+    </Router>
+  )
 }
 
 export default App;
