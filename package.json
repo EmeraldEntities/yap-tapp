@@ -1,12 +1,19 @@
 {
   "name": "yap-tapp",
   "version": "1.0.0",
-  "description": "finally, a productivity website that does it the right way",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "emeraldentities, candicez1124",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EmeraldEntities/yap-tapp.git"
+  },
+  "author": "",
   "license": "ISC",
-  "dependencies": {}
+  "bugs": {
+    "url": "https://github.com/EmeraldEntities/yap-tapp/issues"
+  },
+  "homepage": "https://github.com/EmeraldEntities/yap-tapp#readme"
 }
