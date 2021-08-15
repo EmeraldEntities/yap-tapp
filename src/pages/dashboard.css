@@ -144,3 +144,10 @@
 .task-text {
     margin-left: 1em;
 }
+
+.facebook {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: auto;
+}

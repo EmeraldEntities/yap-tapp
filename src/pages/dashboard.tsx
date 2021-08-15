@@ -359,9 +359,9 @@ const Dashboard: React.FC = () => {
         <div className="buttons">
           {timerLength === undefined ? taskInput : undefined}
           {timerLength === undefined ? button : undefined}
-          <FacebookLoginButton />
         </div>
       </div>
+          <FacebookLoginButton className="facebook"/>
     </div>
   );
 };
