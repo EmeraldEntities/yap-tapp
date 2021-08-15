@@ -58,7 +58,6 @@ const updateShortLivedUserToken = () => {
     if (response.status === 'connected') {
       setShortLivedUserToken(response.authResponse['accessToken'], response.authResponse['reauthorize_required_in']!*1000);
       userId = response.authResponse['userID'];
-      alert(response.authResponse['accessToken']);
     } else {
       if (facebookLogin()) {
         updateShortLivedUserToken();
@@ -79,7 +78,6 @@ const updateLongLivedUserToken = () => {
           +`fb_exchange_token=${shortLivedUserToken}`)
   .then(response => {
     setLongLivedUserToken(response.data['access_token'], response.data['expires_in']*1000);
-    alert(response.data['access_token']);
   });
 }
 
@@ -89,7 +87,6 @@ const updatePageAccessToken = () => {
             + `access_token=${shortLivedUserToken}`)
   .then(response => {
   pageAccessToken = response.data['access_token'];
-  alert(response.data['access_token']);
   });
   
 }
@@ -135,8 +132,6 @@ const Dashboard: React.FC = () => {
 
     const failedTasks = tasks.filter((task) => task.completed != true);
     if (failedTasks.length != 0) {
-      alert(pageAccessToken);
-      alert(longLivedUserToken);
       publishPostToPage("Wow I just failed my tasks");
       alert("you failed");
     }
@@ -336,7 +331,7 @@ const Dashboard: React.FC = () => {
 
   const button = (
     <div className="main-button timer-button-size">
-      <p className="button-text timer-button-text-size" onClick={() => { updateLongLivedUserToken(); alert('f1 done'); updatePageAccessToken(); alert('f2 done'); startTimer(); }}>
+      <p className="button-text timer-button-text-size" onClick={() => { updateLongLivedUserToken(); updatePageAccessToken(); startTimer(); }}>
         Start
       </p>
     </div>
