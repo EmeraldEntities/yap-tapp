@@ -96,11 +96,12 @@ const facebookLogin = (): boolean => {
   return false;
 }
 
-const publicPostToPage = (message: string) => {
+const publishPostToPage = (message: string) => {
   axios.post('https://graph.facebook.com/{page-id}/feed'
   +`?message=${message}`
   +'&access_token={page-access-token}');
 }
+
 const facebookLogout = () => {
   FB.logout(function(response: any) {
     // Person is now logged out
@@ -144,7 +145,7 @@ const Dashboard: React.FC = () => {
         if (d.getElementById(id)) { return; }
         js = d.createElement(s);
         js.id = id;
-        js.src = "https://connect.facebook.net/en_US/sdk.js"; // how do i fix this
+        js.src = "https://connect.facebook.net/en_US/sdk.js";
         fjs.parentNode?.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
     console.log('hi------------------------------------------------------');
