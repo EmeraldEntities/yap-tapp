@@ -9,7 +9,7 @@ class FacebookLoginButton extends React.Component {
   render() {
     return (
       <FacebookLogin
-        appId="861744578087854"
+        appId={process.env.REACT_APP_FACEBOOK_APP_ID}
         autoLoad={true}
         fields="name,email,picture"
         scope="public_profile,pages_manage_posts,pages_read_engagement"
