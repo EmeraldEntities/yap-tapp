@@ -100,6 +100,19 @@
 .timer-input {
     height:100%;
     font-family: questrial;
+    font-size: 144px;
+    width: 1.15em;
+    border-width: 0;
+}
+
+.timer-input:focus {
+    outline: 'none';
+    border-width: 0;
+}
+
+.timer-input:focus-within{
+    outline: 'none';
+    border-width: 0;
 }
 
 .new-task-input:focus {

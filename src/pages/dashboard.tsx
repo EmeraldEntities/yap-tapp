@@ -25,9 +25,23 @@ const Dashboard: React.FC = () => {
   const [timerLength, setTimerLength] = useState<number>();
   const [formattedTime, setFormattedTime] = useState<FormattedTime>();
 
-  const [hourInput, setHourInput] = useState<number>();
-  const [minuteInput, setMinuteInput] = useState<number>();
-  const [secondInput, setSecondInput] = useState<number>();
+  const [hourInput, setHourInput] = useState<number>(0);
+  const [minuteInput, setMinuteInput] = useState<number>(0);
+  const [secondInput, setSecondInput] = useState<number>(0);
+
+
+  const runResults = () => {
+    setTimerLength(undefined);
+    setFormattedTime(undefined);
+
+    const failedTasks = tasks.filter((task) => task.completed != true);
+    if (failedTasks.length != 0) {
+      alert("you failed")
+    }
+
+    // purge tasks
+    setTasks([]);
+  }
 
   useEffect(() => {
     if (timerLength == undefined) {
@@ -35,9 +49,7 @@ const Dashboard: React.FC = () => {
     }
 
     if (reckoningIsHere()) {
-      alert('your time is over');
-      setTimerLength(undefined);
-      setFormattedTime(undefined);
+      runResults();    
     } else {
       console.log(timerLength);
       setFormattedTime(getFormattedTime(timerLength));
@@ -76,6 +88,46 @@ const Dashboard: React.FC = () => {
   };
 
   const Timer: React.FC = () => {
+    if (timerLength === undefined) {
+      return (
+        <div className="timer">
+          {/* this produces scuffed input but idk how to fix it */}
+          <input
+            className="timer-input"
+            placeholder="00"
+            id="hour"
+            type="number"
+            onChange={(e) => setHourInput(parseInt(e.target.value))}
+            value={hourInput == 0 ? "00" : hourInput}
+            max={99}
+            min={0}
+          />
+          <span className="time-segment">:</span>
+          <input
+            className="timer-input"
+            placeholder="00"
+            id="minute"
+            type="number"
+            onChange={(e) => setMinuteInput(parseInt(e.target.value))}
+            value={minuteInput == 0 ? "00" : minuteInput}
+            max={59}
+            min={0}
+          />
+          <span className="time-segment">:</span>
+          <input
+            className="timer-input"
+            placeholder="00"
+            id="second"
+            type="number"
+            onChange={(e) => setSecondInput(parseInt(e.target.value))}
+            value={secondInput == 0 ? "00" : secondInput}
+            max={59}
+            min={0}
+          />
+        </div>
+      );
+    }
+
     return (
       <div className="timer">
         <TimeSegment
@@ -157,7 +209,7 @@ const Dashboard: React.FC = () => {
 
   const startTimer = () => {
     console.log('starting timer');
-    setTimerLength(3);
+    setTimerLength(hourInput * (60*60) + minuteInput * 60 + secondInput);
   };
 
   const button = (
@@ -176,7 +228,6 @@ const Dashboard: React.FC = () => {
         placeholder="add a new item..."
         onKeyDown={(e) => handleKeyDown(e)}
         value={newTask}
-        id="bad-bad-input"
         maxLength={70}
       />
     </div>
