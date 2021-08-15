@@ -3,12 +3,13 @@ import Task from '../components/Task';
 
 import './dashboard.css';
 import axios from 'axios';
+import FacebookLoginButton from '../utils/facebookLoginButton';
 
-declare global {
-  interface Window {
-    fbAsyncInit: () => void;
-  }
-}
+// declare global {
+//   interface Window {
+//     fbAsyncInit: () => void;
+//   }
+// }
 
 export interface TaskItem {
   description: string;
@@ -25,88 +26,88 @@ interface TimeSegmentProps {
   timeValue: number;
 }
 
-let userId = '';
-let pageAccessToken = '';
-let shortLivedUserToken: string = '';
-const setShortLivedUserToken = (token: string, expiresIn: number) => { //milliseconds
-  shortLivedUserToken = token;
-  setTimeout(clearShortLivedUserToken, expiresIn);
-}
-const clearShortLivedUserToken = () => {
-  shortLivedUserToken = ''
-}
+// let userId = '';
+// let pageAccessToken = '';
+// let shortLivedUserToken: string = '';
+// const setShortLivedUserToken = (token: string, expiresIn: number) => { //milliseconds
+//   shortLivedUserToken = token;
+//   setTimeout(clearShortLivedUserToken, expiresIn);
+// }
+// const clearShortLivedUserToken = () => {
+//   shortLivedUserToken = ''
+// }
 
-let longLivedUserToken: string = '';
-const setLongLivedUserToken = (token: string, expiresIn: number) => { //milliseconds
-  longLivedUserToken = token;
-  setTimeout(clearLongLivedUserToken, expiresIn);
-}
-const clearLongLivedUserToken = () => {
-  longLivedUserToken = ''
-}
+// let longLivedUserToken: string = '';
+// const setLongLivedUserToken = (token: string, expiresIn: number) => { //milliseconds
+//   longLivedUserToken = token;
+//   setTimeout(clearLongLivedUserToken, expiresIn);
+// }
+// const clearLongLivedUserToken = () => {
+//   longLivedUserToken = ''
+// }
 
-let pageTokens: string[] = [];
-const clearPageTokens = () => {
-  pageTokens = [];
-}
+// let pageTokens: string[] = [];
+// const clearPageTokens = () => {
+//   pageTokens = [];
+// }
 
-const updateShortLivedUserToken = () => {
-  FB.getLoginStatus(function(response: any) {
-    if (response.status === 'connected') {
-      setShortLivedUserToken(response.authResponse['accessToken'], response.authResponse['reauthorize_required_in']!*1000);
-      userId = response.authResponse['userID'];
-      console.log(response.authResponse['accessToken']);
-    } else {
-      if (facebookLogin()) {
-        updateShortLivedUserToken();
-      } else {
-        // display something?
-        // return to home
-        console.log("return to home");
-      }
-    }
-  });
-}
+// const updateShortLivedUserToken = () => {
+//   FB.getLoginStatus(function(response: any) {
+//     if (response.status === 'connected') {
+//       setShortLivedUserToken(response.authResponse['accessToken'], response.authResponse['reauthorize_required_in']!*1000);
+//       userId = response.authResponse['userID'];
+//       console.log(response.authResponse['accessToken']);
+//     } else {
+//       if (facebookLogin()) {
+//         updateShortLivedUserToken();
+//       } else {
+//         // display something?
+//         // return to home
+//         console.log("return to home");
+//       }
+//     }
+//   });
+// }
 
-const updateLongLivedUserToken = () => {
-  updateShortLivedUserToken();
-  axios.get('https://graph.facebook.com/oauth/access_token?grant_type=fb_exchange_token&'
-          +`client_id=${process.env.REACT_APP_FACEBOOK_APP_ID}&`
-          +`client_secret=${process.env.REACT_APP_FACEBOOK_APP_SECRET}&`
-          +`fb_exchange_token=${shortLivedUserToken}`)
-  .then((response: any) => {
-    setLongLivedUserToken(response['access_token'], response['expires_in']*1000);
-  });
-}
+// const updateLongLivedUserToken = () => {
+//   updateShortLivedUserToken();
+//   axios.get('https://graph.facebook.com/oauth/access_token?grant_type=fb_exchange_token&'
+//           +`client_id=${process.env.REACT_APP_FACEBOOK_APP_ID}&`
+//           +`client_secret=${process.env.REACT_APP_FACEBOOK_APP_SECRET}&`
+//           +`fb_exchange_token=${shortLivedUserToken}`)
+//   .then((response: any) => {
+//     setLongLivedUserToken(response['access_token'], response['expires_in']*1000);
+//   });
+// }
 
-const updatePageAccessToken = () => {
-  axios.get('https://graph.facebook.com/PAGE-ID?'  //TODO: figure out how to get the page id the user chose in login
-    + 'fields=access_token&'
-    + `access_token=${longLivedUserToken}`
-  );
-}
-const facebookLogin = (): boolean => {
-  FB.login(function(response: any){
-    if (response.status === 'connected') {
-      return true;
-    } else {
-      return false;
-    }
-  }, {scope: 'pages_manage_posts, pages_read_engagement'});
-  return false;
-}
+// const updatePageAccessToken = () => {
+//   axios.get('https://graph.facebook.com/PAGE-ID?'  //TODO: figure out how to get the page id the user chose in login
+//     + 'fields=access_token&'
+//     + `access_token=${longLivedUserToken}`
+//   );
+// }
+// const facebookLogin = (): boolean => {
+//   FB.login(function(response: any){
+//     if (response.status === 'connected') {
+//       return true;
+//     } else {
+//       return false;
+//     }
+//   }, {scope: 'pages_manage_posts, pages_read_engagement'});
+//   return false;
+// }
 
-const publishPostToPage = (message: string) => {
-  axios.post('https://graph.facebook.com/{page-id}/feed'
-  +`?message=${message}`
-  +'&access_token={page-access-token}');
-}
+// const publishPostToPage = (message: string) => {
+//   axios.post('https://graph.facebook.com/{page-id}/feed'
+//   +`?message=${message}`
+//   +'&access_token={page-access-token}');
+// }
 
-const facebookLogout = () => {
-  FB.logout(function(response: any) {
-    // Person is now logged out
-  });
-}
+// const facebookLogout = () => {
+//   FB.logout(function(response: any) {
+//     // Person is now logged out
+//   });
+// }
 
 // i would like to formally apologize for the following war crimes of code
 const Dashboard: React.FC = () => {
@@ -133,25 +134,25 @@ const Dashboard: React.FC = () => {
     setTasks([]);
   }
 
-  window.fbAsyncInit = () => {
-    FB.init({
-      appId            : process.env.REACT_APP_FACEBOOK_APP_ID,
-      autoLogAppEvents : true,
-      xfbml            : true,
-      version          : 'v11.0'
-    });
-    (function (d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) { return; }
-        js = d.createElement(s);
-        js.id = id;
-        js.src = "https://connect.facebook.net/en_US/sdk.js";
-        fjs.parentNode?.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-    console.log('hi------------------------------------------------------');
-    updateLongLivedUserToken();
-    updatePageAccessToken();
-  };
+  // window.fbAsyncInit = () => {
+  //   FB.init({
+  //     appId            : process.env.REACT_APP_FACEBOOK_APP_ID,
+  //     autoLogAppEvents : true,
+  //     xfbml            : true,
+  //     version          : 'v11.0'
+  //   });
+  //   (function (d, s, id) {
+  //       var js, fjs = d.getElementsByTagName(s)[0];
+  //       if (d.getElementById(id)) { return; }
+  //       js = d.createElement(s);
+  //       js.id = id;
+  //       js.src = "https://connect.facebook.net/en_US/sdk.js";
+  //       fjs.parentNode?.insertBefore(js, fjs);
+  //   }(document, 'script', 'facebook-jssdk'));
+  //   console.log('hi------------------------------------------------------');
+  //   updateLongLivedUserToken();
+  //   updatePageAccessToken();
+  // };
   
   useEffect(() => {
     if (timerLength == undefined) {
@@ -352,6 +353,7 @@ const Dashboard: React.FC = () => {
         <div className="buttons">
           {timerLength === undefined ? taskInput : undefined}
           {timerLength === undefined ? button : undefined}
+          <FacebookLoginButton />
         </div>
       </div>
     </div>
