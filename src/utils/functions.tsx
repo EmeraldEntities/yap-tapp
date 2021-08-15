@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect } from 'react';
 
-const useScript = (scriptUrl: string) => {
+export const useScript = (scriptUrl: string) => {
   useEffect(() => {
     const script = document.createElement('script');
 
