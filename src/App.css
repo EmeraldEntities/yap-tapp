@@ -36,3 +36,13 @@
     transform: rotate(360deg);
   }
 }
+
+@font-face {
+  font-family: quadSans;
+  src: url(./assets/fonts/QuattrocentoSans.ttf);
+}
+
+@font-face {
+  font-family: questrial;
+  src: url(./assets/fonts/Questrial-Regular.ttf);
+}

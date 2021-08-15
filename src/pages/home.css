@@ -1,0 +1,130 @@
+.main-section {
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    /* keep in bounds */
+    position: relative;
+    
+}
+
+/* we use pseudo-element to make sure that opacity of text remains the same */
+.main-section::before {
+    content: "";
+    background-image: url("../assets/productivity-1.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 0.3;
+    
+    /* make sure we are same size as parent */
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+}
+
+.about-section {
+    width: 100vw;
+    height: 100vh;
+}
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.main-text-container {
+    opacity: 1;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    
+    align-items: center;
+    text-align: center;
+    
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+}
+
+.main-text-container h1 {
+    font-family: quadSans;
+    font-size: 100px;
+}
+
+.main-text-container-declaration {
+    font-family: quadSans;
+    font-size: 64px;
+    margin-top: -3%;
+    font-weight: 0;
+}
+
+.main-text-container-sentence {
+    font-family: quadSans;
+    font-size: 36px;
+    margin-top: -2%;
+    padding: 0 0 0 0;
+}
+
+
+.main-button {
+    position: relative;
+    margin: auto;
+    border-radius: 10px;
+    height: 80%;
+    width: 100%;
+    background-color: #687677;
+    
+    align-items: center;
+    text-align: center;
+
+    display: flex;
+    align-content: center;
+    justify-content: center;
+
+    transition-duration: 0.4s;
+}
+
+.main-button:hover {
+    background-color: #809192;
+}
+
+.button-text:link {
+    text-decoration: none;
+}
+
+.button-text:visited {
+    text-decoration: none;
+}
+
+.button-text:hover {
+    text-decoration: none;
+}
+
+.button-text {
+    color: white;
+    font-size: 48px;
+    text-decoration: none;
+    margin-top:0.75em;
+}
+
+.hide-link {
+    text-decoration: none;
+    max-width: 30%;
+}
+
+.hide-link:hover {
+    text-decoration: none;
+}
+
+.outer-link-wrapper {
+    position: relative;
+    width: 30%;
+}
