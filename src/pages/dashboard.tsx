@@ -103,8 +103,10 @@ const Dashboard: React.FC = () => {
   };
 
   const TaskList: React.FC = () => {
-    tasks.forEach((task) => {console.log(task.completed)})
-    
+    tasks.forEach((task) => {
+      console.log(task.completed);
+    });
+
     const listResults = tasks.map((task) => {
       const removeHandler = () => {
         setTasks(
@@ -158,6 +160,27 @@ const Dashboard: React.FC = () => {
     setTimerLength(3);
   };
 
+  const button = (
+    <div className="main-button timer-button-size">
+      <p className="button-text timer-button-text-size" onClick={startTimer}>
+        Start
+      </p>
+    </div>
+  );
+
+  const taskInput = (
+    <div className="new-task-input-div">
+      <input
+        className="new-task-input"
+        onChange={(e) => setNewTask(e.target.value)}
+        placeholder="add a new item..."
+        onKeyDown={(e) => handleKeyDown(e)}
+        value={newTask}
+        id="bad-bad-input"
+      />
+    </div>
+  );
+
   return (
     <div className="main-dashboard-container">
       <div className="usable-space">
@@ -165,25 +188,8 @@ const Dashboard: React.FC = () => {
         <TaskList />
 
         <div className="buttons">
-          <div className="new-task-input-div">
-            <input
-              className="new-task-input"
-              onChange={(e) => setNewTask(e.target.value)}
-              placeholder="add a new item..."
-              onKeyDown={(e) => handleKeyDown(e)}
-              value={newTask}
-              id="bad-bad-input"
-            />
-          </div>
-
-          <div className="main-button timer-button-size">
-            <p
-              className="button-text timer-button-text-size"
-              onClick={startTimer}
-            >
-              Start
-            </p>
-          </div>
+          {timerLength === undefined ? taskInput : undefined}
+          {timerLength === undefined ? button : undefined}
         </div>
       </div>
     </div>
