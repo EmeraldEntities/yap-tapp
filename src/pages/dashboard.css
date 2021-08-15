@@ -33,6 +33,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
 }
 
 .mx-s {
@@ -72,6 +73,7 @@
     width: 100%;
     height: 50%;
     border: 5px solid gray;
+    position: relative;
 }
 
 .new-task-input-div {
@@ -107,4 +109,18 @@
 .short-time-segment {
     font-size: 36px;
     font-family: questrial;
+}
+
+.task {
+    display: flex;
+    flex-direction: row;
+    border: 5px solid pink;
+    align-items: center;
+    height: 10%;
+    max-width: 50%;
+    font-family: questrial;
+}
+
+.task-text {
+    margin-left: 1em;
 }

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import Task from '../components/Task';
 
 import './dashboard.css';
 
-interface Task {
+export interface TaskItem {
   description: string;
   completed: boolean;
 }
@@ -19,8 +20,8 @@ interface TimeSegmentProps {
 
 // i would liek to formally apologize for the following warcrimes of code
 const Dashboard: React.FC = () => {
-  const [newTask, setNewTask] = useState<string>();
-  const [tasks, setTasks] = useState<Task[]>([]);
+  const [newTask, setNewTask] = useState<string>('');
+  const [tasks, setTasks] = useState<TaskItem[]>([]);
   const [timerLength, setTimerLength] = useState<number>();
   const [formattedTime, setFormattedTime] = useState<FormattedTime>();
 
@@ -32,22 +33,20 @@ const Dashboard: React.FC = () => {
     if (timerLength == undefined) {
       return;
     }
-    
+
     if (reckoningIsHere()) {
       alert('your time is over');
       setTimerLength(undefined);
       setFormattedTime(undefined);
     } else {
-      console.log(timerLength)
+      console.log(timerLength);
       setFormattedTime(getFormattedTime(timerLength));
-  
-  
+
       const id = window.setTimeout(() => {
         setTimerLength(timerLength - 1);
       }, 1000);
       return () => window.clearTimeout(id);
     }
-
   }, [timerLength]);
 
   const getFormattedTime = (timeInSeconds: number): FormattedTime => {
@@ -94,7 +93,6 @@ const Dashboard: React.FC = () => {
     );
   };
 
-
   const reckoningIsHere = (): boolean => {
     return (
       formattedTime != undefined &&
@@ -105,23 +103,60 @@ const Dashboard: React.FC = () => {
   };
 
   const TaskList: React.FC = () => {
-    return <div className="tasklist"></div>;
+    tasks.forEach((task) => {console.log(task.completed)})
+    
+    const listResults = tasks.map((task) => {
+      const removeHandler = () => {
+        setTasks(
+          tasks.filter(function (check) {
+            return check !== task;
+          })
+        );
+      };
+
+      const completeHandler = () => {
+        task.completed = true;
+      };
+
+      return timerLength !== undefined ? (
+        <Task
+          key={task.description}
+          task={task}
+          startedTimer
+          deleteHandler={removeHandler}
+          completeHandler={completeHandler}
+        />
+      ) : (
+        <Task
+          key={task.description}
+          task={task}
+          startedTimer={false}
+          deleteHandler={removeHandler}
+          completeHandler={completeHandler}
+        />
+      );
+    });
+
+    return <div className="tasklist">{listResults}</div>;
   };
 
-  const handleKeyDown = (e:React.KeyboardEvent) => {
+  const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
-      if (newTask !== undefined && newTask != "") {
-        const newList = tasks.concat({description: newTask, completed: false});
+      if (newTask !== undefined && newTask != '') {
+        const newList = tasks.concat({
+          description: newTask,
+          completed: false,
+        });
         setTasks(newList);
-        setNewTask("");
+        setNewTask('');
       }
     }
   };
 
   const startTimer = () => {
-    console.log("starting timer")
+    console.log('starting timer');
     setTimerLength(3);
-  }
+  };
 
   return (
     <div className="main-dashboard-container">
@@ -136,11 +171,18 @@ const Dashboard: React.FC = () => {
               onChange={(e) => setNewTask(e.target.value)}
               placeholder="add a new item..."
               onKeyDown={(e) => handleKeyDown(e)}
+              value={newTask}
+              id="bad-bad-input"
             />
           </div>
 
           <div className="main-button timer-button-size">
-            <p className="button-text timer-button-text-size" onClick={startTimer}>Start</p>
+            <p
+              className="button-text timer-button-text-size"
+              onClick={startTimer}
+            >
+              Start
+            </p>
           </div>
         </div>
       </div>
