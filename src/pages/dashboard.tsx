@@ -177,6 +177,7 @@ const Dashboard: React.FC = () => {
         onKeyDown={(e) => handleKeyDown(e)}
         value={newTask}
         id="bad-bad-input"
+        maxLength={70}
       />
     </div>
   );
