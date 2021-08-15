@@ -141,26 +141,6 @@ const Dashboard: React.FC = () => {
     // purge tasks
     setTasks([]);
   }
-
-  // window.fbAsyncInit = () => {
-  //   FB.init({
-  //     appId            : process.env.REACT_APP_FACEBOOK_APP_ID,
-  //     autoLogAppEvents : true,
-  //     xfbml            : true,
-  //     version          : 'v11.0'
-  //   });
-  //   (function (d, s, id) {
-  //       var js, fjs = d.getElementsByTagName(s)[0];
-  //       if (d.getElementById(id)) { return; }
-  //       js = d.createElement(s);
-  //       js.id = id;
-  //       js.src = "https://connect.facebook.net/en_US/sdk.js";
-  //       fjs.parentNode?.insertBefore(js, fjs);
-  //   }(document, 'script', 'facebook-jssdk'));
-  //   console.log('hi------------------------------------------------------');
-  //   updateLongLivedUserToken();
-  //   updatePageAccessToken();
-  // };
   
   useEffect(() => {
     if (timerLength == undefined) {
@@ -327,13 +307,24 @@ const Dashboard: React.FC = () => {
   };
 
   const startTimer = () => {
-    console.log('starting timer');
     setTimerLength(hourInput * (60*60) + minuteInput * 60 + secondInput);
   };
 
+  const buttonOnClick = () => {
+    if (tasks.length == 0) {
+      alert("Please enter at least 1 task.")
+    } else if (hourInput+ minuteInput + secondInput == 0) {
+      alert("Invalid timer input.")
+    } else {
+      updateLongLivedUserToken();
+      updatePageAccessToken();
+      startTimer();
+    }
+  }
+
   const button = (
     <div className="main-button timer-button-size">
-      <p className="button-text timer-button-text-size" onClick={() => { updateLongLivedUserToken(); updatePageAccessToken(); startTimer(); }}>
+      <p className="button-text timer-button-text-size" onClick={buttonOnClick}>
         Start
       </p>
     </div>
