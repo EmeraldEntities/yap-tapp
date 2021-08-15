@@ -132,8 +132,8 @@ const Dashboard: React.FC = () => {
 
     const failedTasks = tasks.filter((task) => task.completed != true);
     if (failedTasks.length != 0) {
-      publishPostToPage("Wow I just failed my tasks");
-      alert("You failed...");
+      publishPostToPage("Wow I just failed my tasks because i was watchin 15 seasons of tellitubbies and i am proud to say i use light mode for everything screw u grandma");
+      alert("you failed");
     } else {
       alert("Epic! You finished all the tasks.");
     }
