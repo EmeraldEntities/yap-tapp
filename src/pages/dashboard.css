@@ -1,0 +1,110 @@
+.main-dashboard-container {
+    width: 100vw;
+    height: 100vh;
+
+    /* keep in bounds */
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-dashboard-container::before {
+    content: "";
+    background-image: url("../assets/productivity-2.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 0.3;
+    
+    /* make sure we are same size as parent */
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+}
+
+.usable-space {
+    margin-top: 5%;
+    height: 90%;
+    width: 65%;
+    border: 5px solid green;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mx-s {
+    margin-left: 10;
+    margin-right: 10;
+}
+
+.time-segment {
+    font-size: 144px;
+    font-family: questrial;
+}
+
+.buttons {
+    position: relative;
+    bottom: 0;
+
+    width: 100%;
+    height: 30%;
+    border: 5px solid gray;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.timer-button-size {
+    margin-top: 5%;
+    width: 30%;
+    height: 30%;
+}
+
+.timer-button-text-size {
+    font-size: 30px;
+}
+
+.tasklist {
+    width: 100%;
+    height: 50%;
+    border: 5px solid gray;
+}
+
+.new-task-input-div {
+    width: 50%;
+}
+
+.new-task-input {
+    height: '1.3em';
+    border-radius: 15;
+    border-width: 0;
+
+    width: 100%;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    font-family: questrial;
+}
+
+.new-task-input:focus {
+    outline: 'none';
+}
+
+.timer-input {
+    height:100%;
+    font-family: questrial;
+}
+
+.new-task-input:focus {
+    outline: 'none';
+}
+
+.short-time-segment {
+    font-size: 36px;
+    font-family: questrial;
+}

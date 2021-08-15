@@ -16,8 +16,8 @@ const Home: React.FC = () => {
           {/* i dunno why putting this outside this div doesn't work lol */}
           <div className="outer-link-wrapper">
             <Link to="/dashboard" className="hide-link">
-              <div className="main-button">
-                <p className="button-text">get started</p>
+              <div className="main-button main-button-size">
+                <p className="button-text main-button-text-size">get started</p>
               </div>
             </Link>
           </div>
